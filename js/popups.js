@@ -8,20 +8,36 @@ if (popupLinks.length > 0) {
    for (let a = 0; a < popupLinks.length; a++) {
       let b = popupLinks[a];
       b.addEventListener("click", function (a) {
-         let c = b.getAttribute("href").replace("#", ""),
+
+        if (b.classList.contains('roulette-button')){            
+            setTimeout(function() {
+                let c = b.getAttribute("href").replace("#", ""),
                 d = document.getElementById(c);
-            popupOpen(d), a.preventDefault();
+                popupOpen(d), a.preventDefault();
+            }, 2800);
+        }else{
+            let c = b.getAttribute("href").replace("#", ""),
+                   d = document.getElementById(c);
+               popupOpen(d), a.preventDefault();
+        }
+
         });
     }
 }
 const popupCloseIcon = document.querySelectorAll(".close-popup");
-if (popupCloseIcon.length > 0)
+if (popupCloseIcon.length > 0) {
     for (let index = 0; index < popupCloseIcon.length; index++) {
         let c = popupCloseIcon[index];
         c.addEventListener("click", function (a) {
-            popupClose(c.closest(".popup")), a.preventDefault();
+            const popups = document.querySelectorAll(".popup");
+            for (let i = 0; i < popups.length; i++) {
+                popups[i].classList.remove('open');
+            }
+            a.preventDefault();
         });
     }
+}
+
 function popupOpen(a) {
     if (a && unlock) {
         let b = document.querySelector(".popup.open");

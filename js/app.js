@@ -17,7 +17,6 @@ window.addEventListener('resize', function() {
 
 // Объявляем переменные
 
-
 // Распределяем элементы рулетки
 
 for (let i = 0; i < numberOfRouletteItems; i++){
@@ -48,14 +47,50 @@ function rollRoulette(rollTo){
 
   setTimeout(function() {
     const targetIndex = (screenWidth < 1300) ? rollTo + 1 : rollTo + 2;
+
+
     rouletteItems[targetIndex].classList.add('active');
+
+    const title = rouletteItems[targetIndex].querySelector('.roulette-item-title').textContent;
+    const img = rouletteItems[targetIndex].querySelector('img').src;
+
+    console.log(title);
+    console.log(img);
+
+    document.querySelector('.winner-title').textContent = title;
+    document.querySelector('.winner-img img').src = img;
+
+    document.querySelector('#winner').classList.add('open');
+    document.querySelector('#winner').classList.add('win');
   }, 10400);
 }
 // Функция прокрутки
 
 
-
 // Кнопка
 document.querySelector('.roulette-button').addEventListener('click', function(e){
-  rollRoulette(80);
+  var container = document.querySelector('.roulette__box');
+
+  var giftBox = document.getElementById("GiftBox");
+  giftBox.remove();
+
+
+  var imgElement = document.createElement('img');
+  imgElement.src = 'img/gift-box.gif';
+  imgElement.alt = '';
+  // imgElement.style.transform = 'scale(0)';
+  imgElement.style.transition = 'all 0.25s ease';
+  
+
+  container.appendChild(imgElement);
+
+  // setTimeout(function() {
+  //   imgElement.style.transform = 'scale(1)';
+  // }, 50);
+
+  setTimeout(function() {
+    rollRoulette(80);
+    imgElement.style.opacity = '0';
+
+  }, 2800);
 })
